@@ -3,25 +3,52 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
         });
     });
 
-    // Form submission handling
-    const form = document.getElementById('contact-form');
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        // Here you would typically send the form data to a server
-        // For this example, we'll just show an alert
-        alert('Thank you for your message! We will get back to you soon.');
-        form.reset();
+    // Navbar background change on scroll
+    window.addEventListener('scroll', function() {
+        const navbar = document.querySelector('.navbar');
+        if (navbar) {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }
     });
 
-    // Simple parallax effect for the hero section
-    window.addEventListener('scroll', function() {
-        const scrollPosition = window.pageYOffset;
-        document.querySelector('#hero').style.backgroundPositionY = scrollPosition * 0.5 + 'px';
-    });
+    // Simple parallax effect for hero background
+    const heroElement = document.querySelector('.hero');
+    if (heroElement) {
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.pageYOffset;
+            heroElement.style.backgroundPositionY = -(scrollPosition * 0.5) + 'px';
+        });
+    }
+
+    // Add a typing effect to the hero title
+    const heroTitle = document.querySelector('.hero h1');
+    if (heroTitle) {
+        const text = heroTitle.textContent;
+        heroTitle.textContent = '';
+        let i = 0;
+
+        function typeWriter() {
+            if (i < text.length) {
+                heroTitle.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 50);
+            }
+        }
+
+        typeWriter();
+    }
 });

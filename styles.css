@@ -1,209 +1,101 @@
-:root {
-    --primary-color: #00a8e8;
-    --secondary-color: #003459;
-    --text-color: #ffffff;
-    --background-color: #000000;
+@font-face {
+    font-family: 'Avenir';
+    src: url('path-to-your-avenir-font-file.woff2') format('woff2'),
+         url('path-to-your-avenir-font-file.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+:root {
+    --bs-body-bg: #121212;
+    --bs-body-color: #ffffff;
+    --bs-primary: #00a8e8;
+    --bs-secondary: #00e8b5;
 }
 
 body {
-    font-family: 'Nunito', sans-serif;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    line-height: 1.6;
+    font-family: 'Avenir', 'Helvetica Neue', Arial, sans-serif;
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
 }
 
-header {
-    padding: 1rem 5%;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-    background-color: rgba(0, 0, 0, 0.8);
+.navbar {
+    background-color: rgba(18, 18, 18, 0.8);
+    backdrop-filter: blur(10px);
 }
 
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-size: 2rem;
+.navbar-brand {
     font-weight: 700;
-    color: var(--primary-color);
 }
 
 .tech {
-    color: var(--text-color);
+    color: var(--bs-primary);
 }
 
-nav ul {
-    display: flex;
-    list-style: none;
+.nav-link {
+    font-weight: 500;
 }
 
-nav ul li {
-    margin-left: 2rem;
+.btn-primary {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
 }
 
-nav ul li a {
-    color: var(--text-color);
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s ease;
+.btn-secondary {
+    background-color: var(--bs-secondary);
+    border-color: var(--bs-secondary);
+    color: var(--bs-body-bg);
 }
 
-nav ul li a:hover {
-    color: var(--primary-color);
+.hero {
+    background: linear-gradient(45deg, rgba(18, 18, 18, 0.9), rgba(18, 18, 18, 0.7)), 
+                url('https://source.unsplash.com/random/1920x1080?medical,technology') no-repeat center center;
+    background-size: cover;
+    position: relative;
 }
 
-main {
-    padding-top: 80px;
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle, rgba(0, 168, 232, 0.1) 0%, rgba(18, 18, 18, 0) 70%);
 }
 
-section {
-    padding: 5rem 10%;
+.hero .container {
+    position: relative;
+    z-index: 1;
 }
 
-#hero {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://via.placeholder.com/1920x1080.png?text=QubeX+Hero+Image') no-repeat center center/cover;
-}
-
-h1 {
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
-    color: var(--primary-color);
-}
-
-h2 {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    color: var(--primary-color);
-}
-
-p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-}
-
-.cta-button {
-    display: inline-block;
-    padding: 0.8rem 2rem;
-    background-color: var(--primary-color);
-    color: var(--background-color);
-    text-decoration: none;
+.display-3 {
     font-weight: 700;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
 }
 
-.cta-button:hover {
-    background-color: var(--secondary-color);
+.lead {
+    font-weight: 300;
 }
 
-.portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+.card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.portfolio-item {
-    background-color: var(--secondary-color);
-    border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 168, 232, 0.1);
 }
 
-.portfolio-item:hover {
-    transform: translateY(-10px);
+.card-title {
+    color: var(--bs-primary);
 }
 
-.portfolio-item img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.portfolio-item h3 {
-    font-size: 1.5rem;
-    margin: 1rem;
-    color: var(--primary-color);
-}
-
-.portfolio-item p {
-    margin: 0 1rem 1rem;
-    font-size: 1rem;
-}
-
-#contact form {
-    display: flex;
-    flex-direction: column;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-#contact form input,
-#contact form textarea {
-    margin-bottom: 1rem;
-    padding: 0.8rem;
-    border: none;
-    border-radius: 5px;
-    background-color: var(--secondary-color);
-    color: var(--text-color);
-    font-family: 'Nunito', sans-serif;
-}
-
-#contact form button {
-    padding: 0.8rem;
-    border: none;
-    border-radius: 5px;
-    background-color: var(--primary-color);
-    color: var(--background-color);
-    font-weight: 700;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-#contact form button:hover {
-    background-color: var(--secondary-color);
-}
-
-footer {
-    text-align: center;
-    padding: 2rem;
-    background-color: var(--secondary-color);
-}
-
-@media (max-width: 768px) {
-    nav {
-        flex-direction: column;
-    }
-
-    nav ul {
-        margin-top: 1rem;
-    }
-
-    nav ul li {
-        margin: 0 1rem;
-    }
-
-    h1 {
-        font-size: 2.5rem;
-    }
-
-    h2 {
-        font-size: 2rem;
+@media (max-width: 991.98px) {
+    .navbar-nav {
+        background-color: rgba(18, 18, 18, 0.9);
+        padding: 1rem;
+        border-radius: 0.5rem;
     }
 }
