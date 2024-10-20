@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize AOS (Animate on Scroll)
+    AOS.init({
+        duration: 1000,
+        once: true
+    });
+
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -14,18 +20,19 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Navbar background change on scroll
-    window.addEventListener('scroll', function() {
-        const navbar = document.querySelector('.navbar');
-        if (navbar) {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
+    const navbar = document.querySelector('.navbar');
+    const changeNavbar = () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
         }
-    });
+    };
 
-    // Simple parallax effect for hero background
+    window.addEventListener('scroll', changeNavbar);
+    changeNavbar(); // Call once to set initial state
+
+    // Parallax effect for hero background
     const heroElement = document.querySelector('.hero');
     if (heroElement) {
         window.addEventListener('scroll', function() {
@@ -34,21 +41,41 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Add a typing effect to the hero title
+    // Typing effect for hero title
     const heroTitle = document.querySelector('.hero h1');
     if (heroTitle) {
         const text = heroTitle.textContent;
-        heroTitle.textContent = '';
+        heroTitle.innerHTML = '';
         let i = 0;
 
         function typeWriter() {
             if (i < text.length) {
-                heroTitle.textContent += text.charAt(i);
+                heroTitle.innerHTML += text.charAt(i);
                 i++;
                 setTimeout(typeWriter, 50);
             }
         }
 
-        typeWriter();
+        // Start typing effect when the element is in view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    typeWriter();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(heroTitle);
+    }
+
+    // Form submission handling (prevent default and show alert)
+    const contactForm = document.querySelector('#contact form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message. We will get back to you soon!');
+            this.reset();
+        });
     }
 });

@@ -1,10 +1,4 @@
-@font-face {
-    font-family: 'Avenir';
-    src: url('path-to-your-avenir-font-file.woff2') format('woff2'),
-         url('path-to-your-avenir-font-file.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
 :root {
     --bs-body-bg: #121212;
@@ -14,7 +8,7 @@
 }
 
 body {
-    font-family: 'Avenir', 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
     background-color: var(--bs-body-bg);
     color: var(--bs-body-color);
 }
@@ -22,23 +16,54 @@ body {
 .navbar {
     background-color: rgba(18, 18, 18, 0.8);
     backdrop-filter: blur(10px);
+    transition: background-color 0.3s ease;
+}
+
+.navbar.scrolled {
+    background-color: rgba(18, 18, 18, 0.95);
 }
 
 .navbar-brand {
     font-weight: 700;
 }
 
-.tech {
-    color: var(--bs-primary);
+.brand-text {
+    background: linear-gradient(45deg, var(--bs-primary), var(--bs-secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 1.5rem;
 }
 
 .nav-link {
     font-weight: 500;
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--bs-primary);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
 }
 
 .btn-primary {
     background-color: var(--bs-primary);
     border-color: var(--bs-primary);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 168, 232, 0.3);
 }
 
 .btn-secondary {
@@ -52,9 +77,10 @@ body {
                 url('https://source.unsplash.com/random/1920x1080?medical,technology') no-repeat center center;
     background-size: cover;
     position: relative;
+    overflow: hidden;
 }
 
-.hero::after {
+.hero::before {
     content: '';
     position: absolute;
     top: 0;
@@ -81,6 +107,19 @@ body {
     background-color: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 80%);
+    transform: rotate(45deg);
+    transition: transform 0.5s ease;
 }
 
 .card:hover {
@@ -88,8 +127,33 @@ body {
     box-shadow: 0 10px 20px rgba(0, 168, 232, 0.1);
 }
 
+.card:hover::before {
+    transform: rotate(45deg) translateY(-50%);
+}
+
 .card-title {
     color: var(--bs-primary);
+}
+
+.section {
+    padding: 5rem 0;
+}
+
+.bg-light {
+    background-color: #1e1e1e !important;
+}
+
+.form-control {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--bs-body-color);
+}
+
+.form-control:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--bs-primary);
+    color: var(--bs-body-color);
+    box-shadow: 0 0 0 0.25rem rgba(0, 168, 232, 0.25);
 }
 
 @media (max-width: 991.98px) {
@@ -98,4 +162,22 @@ body {
         padding: 1rem;
         border-radius: 0.5rem;
     }
+}
+
+/* Modern scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bs-body-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--bs-primary);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--bs-secondary);
 }
