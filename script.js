@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const headerDemoBtn = document.getElementById('headerDemoBtn');
-    const bodyDemoBtn = document.getElementById('bodyDemoBtn');
+    // Elements
+    const headerDemoBtn = document.querySelector('.navbar .btn-primary');
+    const bodyDemoBtn = document.querySelector('.hero-cta .btn-primary');
     const emailInput = document.getElementById('email');
     const phoneInput = document.getElementById('phone');
     const demoForm = document.getElementById('demoForm');
@@ -14,6 +15,13 @@ document.addEventListener('DOMContentLoaded', function() {
             headerDemoBtn.classList.remove('d-none');
         } else {
             headerDemoBtn.classList.add('d-none');
+        }
+
+        // Navbar background opacity
+        if (window.scrollY > 50) {
+            document.querySelector('.navbar').style.backgroundColor = 'rgba(18, 18, 18, 0.95)';
+        } else {
+            document.querySelector('.navbar').style.backgroundColor = 'rgba(18, 18, 18, 0.8)';
         }
     });
 
@@ -43,49 +51,71 @@ document.addEventListener('DOMContentLoaded', function() {
         e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
     });
 
-    // Form validation
+    // Form validation and submission
     demoForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Basic email validation
+        // Validate email
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(emailInput.value)) {
-            alert('Please enter a valid email address.');
-            emailInput.focus();
+            showError(emailInput, 'Please enter a valid email address');
             return;
         }
 
-        // US phone number validation
+        // Validate phone
         const phoneRegex = /^\(\d{3}\)\s\d{3}-\d{4}$/;
         if (!phoneRegex.test(phoneInput.value)) {
-            alert('Please enter a valid US phone number.');
-            phoneInput.focus();
+            showError(phoneInput, 'Please enter a valid US phone number');
             return;
         }
 
-        // If all validations pass, you can submit the form or handle the data as needed
-        alert('Thank you for your interest! We will contact you soon to schedule a demo.');
-        
-        // Close the modal
-        const demoModal = bootstrap.Modal.getInstance(document.getElementById('demoModal'));
-        demoModal.hide();
-        
-        // Reset the form
+        // Collect form data
+        const formData = {
+            name: document.getElementById('name').value,
+            email: emailInput.value,
+            phone: phoneInput.value,
+            title: document.getElementById('title').value,
+            teamSize: document.getElementById('teamSize').value
+        };
+
+        // Here you would typically send the data to your server
+        console.log('Form submission:', formData);
+
+        // Show success message
+        showSuccess();
+
+        // Reset form and close modal
         demoForm.reset();
+        bootstrap.Modal.getInstance(document.getElementById('demoModal')).hide();
     });
 
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', function(event) {
-        const isClickInside = navbarCollapse.contains(event.target) || navbarToggler.contains(event.target);
-        
-        if (!isClickInside && navbarCollapse.classList.contains('show')) {
-            navbarToggler.click();
+    // Error handling helper
+    function showError(input, message) {
+        const formGroup = input.parentElement;
+        const errorDiv = formGroup.querySelector('.error-message') || document.createElement('div');
+        errorDiv.className = 'error-message text-danger mt-1';
+        errorDiv.textContent = message;
+        if (!formGroup.querySelector('.error-message')) {
+            formGroup.appendChild(errorDiv);
         }
-    });
+        input.classList.add('is-invalid');
+    }
+
+    // Success message helper
+    function showSuccess() {
+        const successAlert = document.createElement('div');
+        successAlert.className = 'alert alert-success alert-dismissible fade show';
+        successAlert.role = 'alert';
+        successAlert.innerHTML = `
+            Thank you for your interest! We will contact you soon.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        `;
+        document.querySelector('.modal-body').insertBefore(successAlert, demoForm);
+    }
 
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
+        anchor.addEventListener('click', function(e) {
             e.preventDefault();
             const targetId = this.getAttribute('href').substring(1);
             const targetElement = document.getElementById(targetId);
@@ -94,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     behavior: 'smooth',
                     block: 'start'
                 });
-                // Close mobile menu after clicking a link
+                // Close mobile menu if open
                 if (navbarCollapse.classList.contains('show')) {
                     navbarToggler.click();
                 }
@@ -102,37 +132,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Add animation to cards on scroll
-    const animateCards = () => {
-        const cards = document.querySelectorAll('.card');
-        cards.forEach(card => {
-            const cardPosition = card.getBoundingClientRect().top;
+    // Animation on scroll
+    const animateElements = () => {
+        const elements = document.querySelectorAll('.card, .section h2, .section p');
+        elements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
             const screenPosition = window.innerHeight / 1.3;
-            if (cardPosition < screenPosition) {
-                card.classList.add('animate__animated', 'animate__fadeInUp');
+            if (elementPosition < screenPosition) {
+                element.classList.add('animate__animated', 'fade-in');
             }
         });
     };
 
-    window.addEventListener('scroll', animateCards);
-    animateCards(); // Run once on load
+    window.addEventListener('scroll', animateElements);
+    animateElements(); // Run once on load
 
-    // Navbar background change on scroll
-    const navbar = document.querySelector('.navbar');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
-
-    // Handle mobile menu toggle
-    navbarToggler.addEventListener('click', function() {
-        this.classList.toggle('active');
-    });
-
-    // Close mobile menu when window is resized to desktop view
+    // Handle window resize
     window.addEventListener('resize', function() {
         if (window.innerWidth > 991 && navbarCollapse.classList.contains('show')) {
             navbarToggler.click();

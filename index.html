@@ -3,58 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QubeX - Revolutionizing Patient-Doctor Interactions with AI</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>QubeX - Transforming Medical Interactions with AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">QubeX</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <a href="#" class="navbar-brand">QubeX</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <div class="hamburger-icon">
                     <span></span>
                     <span></span>
                 </div>
             </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <div id="navbarNav" class="collapse navbar-collapse justify-content-end">
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Products
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="https://www.getvantage.tech" target="_blank">Vantage AI</a></li>
+                        <a href="#" id="navbarDropdown" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Products</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://www.getvantage.tech" class="dropdown-item" target="_blank">Vantage AI</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#features">Features</a>
+                        <a href="#features" class="nav-link">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="btn btn-primary ms-lg-3" data-bs-toggle="modal" data-bs-target="#demoModal">Book a Demo</a>
                     </li>
                 </ul>
-                <button class="btn btn-primary d-none ms-3" id="headerDemoBtn" data-bs-toggle="modal" data-bs-target="#demoModal">Book a Demo →</button>
             </div>
         </div>
     </nav>
 
-    <header class="hero">
+    <section class="hero">
         <div class="container">
             <h1 class="display-4 fw-bold mb-4">
-                <span class="gradient-text">Transforming Medical Interactions</span>
-                <span class="d-block">with AI</span>
+                <span class="gradient-text">Transforming Medical</span>
+                <span class="gradient-text">Interactions</span>
+                <span class="d-block text-white">with AI</span>
             </h1>
-            <p class="hero-description lead mb-4">
-                Empowering healthcare professionals to provide enhanced patient care through intelligent conversation analysis and AI-powered support.
+            <p class="lead mb-4">
+                Empowering healthcare professionals to provide enhanced patient care
+                through intelligent conversation analysis and AI-powered support.
             </p>
             <div class="hero-cta">
-                <button class="btn btn-primary btn-lg" id="bodyDemoBtn" data-bs-toggle="modal" data-bs-target="#demoModal">Book a Demo →</button>
-                <a href="#features" class="btn btn-outline-light btn-lg ms-3">Explore Features</a>
+                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#demoModal">Book a Demo →</a>
+                <a href="#features" class="btn btn-outline-light">Explore Features</a>
             </div>
         </div>
-    </header>
+    </section>
 
-    <main>
-        <section id="features" class="py-5">
+    <main role="main">
+        <section id="features" class="section py-5">
             <div class="container">
                 <h2 class="text-center mb-5">Key Features</h2>
                 <div class="row g-4">
@@ -86,7 +88,7 @@
             </div>
         </section>
 
-        <section id="about" class="py-5 bg-light">
+        <section id="about" class="section py-5 bg-light">
             <div class="container">
                 <h2 class="text-center mb-5">About QubeX</h2>
                 <div class="row align-items-center">
@@ -95,21 +97,21 @@
                         <p>By leveraging the power of AI in medical conversations, we aim to improve diagnostic accuracy, streamline documentation processes, and provide invaluable support to healthcare providers.</p>
                     </div>
                     <div class="col-lg-6">
-                        <img src="assets/ai-medicine.jpg" alt="something isn't right" class="img-fluid rounded">
+                        <img src="assets/ai-medicine.jpg" alt="AI in Medicine" class="img-fluid rounded">
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="footer mt-auto py-3 bg-dark">
+    <footer class="py-4">
         <div class="container text-center">
-            <span class="text-muted">&copy; 2024 QubeX. All rights reserved.</span>
+            <span class="text-muted">© 2024 QubeX. All rights reserved.</span>
         </div>
     </footer>
 
-    <!-- Book a Demo Modal -->
-    <div class="modal fade" id="demoModal" tabindex="-1" aria-labelledby="demoModalLabel" aria-hidden="true">
+    <!-- Demo Modal -->
+    <div id="demoModal" class="modal fade" tabindex="-1" aria-labelledby="demoModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -145,14 +147,14 @@
                                 <option value="1000+">1000+</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary w-100">Submit</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
